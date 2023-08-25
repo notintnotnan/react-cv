@@ -1,25 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./media/fonts/Oswald-Light.ttf";
 import "./media/fonts/Oswald-Regular.ttf";
 import "./media/fonts/Oswald-Bold.ttf";
 
-import { useState } from "react";
-
 import "./App.css";
 import Curriculum from "./views/Curriculum";
 import Languages from "./views/Languages";
-import data from "./data/spanish.js";
+import dataEs from "./data/spanish.js";
+import dataEn from "./data/english.js";
 
 export default function App() {
   const [language, setLanguage] = useState(0);
-  const [cvData, setCVData] = useState(data);
+  const [cvData, setCVData] = useState(dataEs);
 
-  const loadDataJson = async () => {
-    const keys = { 0: "spanish", 1: "english" };
-    return (await import(`./data/${keys[language]}.js`)).default;
+  const langDict = {
+    0: dataEs,
+    1: dataEn,
   };
 
-  const changeLanguage = async () => {
+  const changeLanguage = () => {
     if (language !== 0) {
       setLanguage(0);
     } else {
@@ -27,17 +26,14 @@ export default function App() {
     }
   };
 
-  const translate = () => {
-    changeLanguage();
-    loadDataJson().then((json) => {
-      setCVData(json);
-    });
-  };
+  useEffect(() => {
+    setCVData(langDict[language]);
+  }, [language]);
 
   return (
     <>
       <div className="App container">
-        <Curriculum lang={language} langFun={translate} data={cvData} />
+        <Curriculum lang={language} langFun={changeLanguage} data={cvData} />
       </div>
     </>
   );
