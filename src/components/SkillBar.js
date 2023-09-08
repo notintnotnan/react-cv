@@ -2,13 +2,18 @@ export default function SkillBar(props) {
   const widthPercent = String(100 * (props.value / props.max));
   return (
     <>
-      <div className="d-grid">
+      <div className="d-grid text-center">
         <div>
-          <p className="m-0">{props.name}</p>
+          <p className="m-0">{`${props.name} → ${props.text}`}</p>
         </div>
-        <div style={{ backgroundColor: "whitesmoke", borderRadius: 10 }}>
+        <div
+          style={{
+            backgroundColor: "whitesmoke",
+            borderRadius: 10,
+          }}
+        >
           <div
-            className="progress"
+            className="progress progressBarHeight"
             style={{
               height: 10,
               width: widthPercent + "%",
@@ -16,7 +21,7 @@ export default function SkillBar(props) {
             }}
           >
             <div
-              className="progress-bar"
+              className="progress-bar progressBarFill"
               role="progressbar"
               aria-valuenow={String(props.value)}
               aria-valuemin={"0"}

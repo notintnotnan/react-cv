@@ -7,5 +7,5 @@ export default function DetailText(props) {
     returnText = props.detail;
   }
 
-  return <p className="m-0">{returnText}</p>;
+  return <p className="m-0 text-center">{returnText}</p>;
 }

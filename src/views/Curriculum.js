@@ -1,15 +1,20 @@
 import React from "react";
+
 import titles from "../data/titles.js";
+
 import SimpleRecord from "../components/SimpleRecord.js";
 import DetailedRecord from "../components/DetailedRecord.js";
 import RefLink from "../components/RefLink.js";
 import SkillBar from "../components/SkillBar.js";
 import DetailText from "../components/DetailText.js";
+import SectionTitle from "../components/SectionTitle";
+
+console.log(titles);
 
 export default function Curriculum(props) {
   return (
     <>
-      <div className="row">
+      <div className="row sectionDiv">
         <div className="col text-center grid">
           <h2>{props.data["personalData"]["name"]}</h2>
           <div>
@@ -23,114 +28,143 @@ export default function Curriculum(props) {
             </p>
           </div>
         </div>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-outline-secondary" onClick={props.langFun}>
+            Es/En
+          </button>
+        </div>
+        <hr></hr>
       </div>
       <div className="row">
-        <div className="col-2 text-center">
-          <div className="row ">
-            <h4>{titles["personal"][props.lang]}</h4>
-            {["city", "country", "phone", "email"].map((detail) => {
-              if (detail === "phone") {
+        <div className="columnHolder">
+          <div className="columnBasics">
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["personalData"][props.lang]}
+                icon={titles["personalData"]["icon"]}
+              />
+              {["city", "country", "phone", "email"].map((detail) => {
+                if (detail === "phone") {
+                  return (
+                    <DetailText
+                      id={props.data["personalData"]["phone_id"]}
+                      detail={props.data["personalData"][detail]}
+                    />
+                  );
+                } else {
+                  return (
+                    <DetailText detail={props.data["personalData"][detail]} />
+                  );
+                }
+              })}
+            </div>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["links"][props.lang]}
+                icon={titles["links"]["icon"]}
+              />
+              {props.data["links"].map((item) => {
+                return <RefLink url={item.url} name={item.name} />;
+              })}
+            </div>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["skills"][props.lang]}
+                icon={titles["skills"]["icon"]}
+              />
+              {props.data["skills"].map((item) => {
                 return (
-                  <DetailText
-                    id={props.data["personalData"]["phone_id"]}
-                    detail={props.data["personalData"][detail]}
+                  <SkillBar
+                    value={item.level}
+                    max={item.overall}
+                    name={item.skill}
+                    text={item.levelText}
                   />
                 );
-              } else {
+              })}
+            </div>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["languages"][props.lang]}
+                icon={titles["languages"]["icon"]}
+              />
+              {props.data["languages"].map((item) => {
                 return (
-                  <DetailText detail={props.data["personalData"][detail]} />
+                  <SkillBar
+                    value={item.level}
+                    max={item.overall}
+                    name={item.language}
+                    text={item.levelText}
+                  />
                 );
-              }
-            })}
+              })}
+            </div>
           </div>
-          <div className="row">
-            <h4>{titles["links"][props.lang]}</h4>
-            {props.data["links"].map((item) => {
-              return <RefLink url={item.url} name={item.name} />;
-            })}
-          </div>
-          <div className="row">
-            <h4>{titles["skills"][props.lang]}</h4>
-            {props.data["skills"].map((item) => {
-              return (
-                <SkillBar
-                  value={item.level}
-                  max={item.overall}
-                  name={item.skill}
-                />
-              );
-            })}
-          </div>
-          <div className="row">
-            <h4>{titles["languages"][props.lang]}</h4>
-            {props.data["languages"].map((item) => {
-              return (
-                <SkillBar
-                  value={item.level}
-                  max={item.overall}
-                  name={item.language}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="col-10">
-          <div className="text-justify row">
-            <h4>{titles["profile"][props.lang]}</h4>
-            <p className="recordText">{props.data["profile"]}</p>
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["employment"][props.lang]}</h4>
-            {props.data["experience"].map((item) => {
-              return (
-                <DetailedRecord
-                  employer={item["employer"]}
-                  title={item["title"]}
-                  city={item["city"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  description={item["description"]}
-                  lang={props.lang}
-                />
-              );
-            })}
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["education"][props.lang]}</h4>
-            {props.data["education"].map((item) => {
-              return (
-                <SimpleRecord
-                  institution={item["institution"]}
-                  degree={item["degree"]}
-                  city={item["city"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  lang={props.lang}
-                />
-              );
-            })}
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["courses"][props.lang]}</h4>
-            {props.data["certifications"].map((item) => {
-              return (
-                <SimpleRecord
-                  institution={item["institution"]}
-                  degree={item["certification"]}
-                  city={item["platform"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  lang={props.lang}
-                />
-              );
-            })}
+          <div className="columnTexts">
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["profile"][props.lang]}
+                icon={titles["profile"]["icon"]}
+              />
+              <p className="recordText">{props.data["profile"]}</p>
+            </div>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["experience"][props.lang]}
+                icon={titles["experience"]["icon"]}
+              />
+              {props.data["experience"].map((item) => {
+                return (
+                  <DetailedRecord
+                    employer={item["employer"]}
+                    title={item["title"]}
+                    city={item["city"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    description={item["description"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["education"][props.lang]}
+                icon={titles["education"]["icon"]}
+              />
+              {props.data["education"].map((item) => {
+                return (
+                  <SimpleRecord
+                    institution={item["institution"]}
+                    degree={item["degree"]}
+                    city={item["city"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["certifications"][props.lang]}
+                icon={titles["certifications"]["icon"]}
+              />
+              {props.data["certifications"].map((item) => {
+                return (
+                  <SimpleRecord
+                    institution={item["institution"]}
+                    degree={item["certification"]}
+                    city={item["platform"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <button className="btn btn-outline-secondary" onClick={props.langFun}>
-          Es/En
-        </button>
       </div>
     </>
   );

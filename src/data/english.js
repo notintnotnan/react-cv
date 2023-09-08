@@ -67,48 +67,63 @@ const data = {
   skills: [
     {
       skill: "SQL",
+      levelText: "Advanced",
       level: 4,
       overall: 5,
     },
     {
       skill: "Python",
+      levelText: "Advanced",
       level: 4,
       overall: 5,
     },
     {
       skill: "Excel",
+      levelText: "Advanced",
       level: 4,
       overall: 5,
     },
     {
       skill: "Power BI",
+      levelText: "Intermidiate",
       level: 3,
       overall: 5,
     },
     {
       skill: "Git",
+      levelText: "Basic",
       level: 2,
       overall: 5,
     },
     {
       skill: "React",
+      levelText: "Basic",
       level: 2,
+      overall: 5,
+    },
+    {
+      skill: "Django",
+      levelText: "Beginner",
+      level: 1,
       overall: 5,
     },
   ],
   languages: [
     {
       language: "Spanish",
+      levelText: "C2",
       level: 6,
       overall: 6,
     },
     {
       language: "English",
+      levelText: "C1",
       level: 5,
       overall: 6,
     },
     {
       language: "German",
+      levelText: "A2",
       level: 2,
       overall: 6,
     },
