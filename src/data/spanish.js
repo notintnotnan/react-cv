@@ -79,7 +79,6 @@ const data = {
     },
     {
       skill: "Excel",
-      levelText: "",
       levelText: "Avanzado",
       level: 4,
       overall: 5,

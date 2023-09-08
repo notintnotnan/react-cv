@@ -69,7 +69,6 @@ const data = {
       skill: "SQL",
       levelText: "Advanced",
       level: 4,
-      levelText: "",
       overall: 5,
     },
     {
