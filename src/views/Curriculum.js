@@ -1,15 +1,20 @@
 import React from "react";
+
 import titles from "../data/titles.js";
+
 import SimpleRecord from "../components/SimpleRecord.js";
 import DetailedRecord from "../components/DetailedRecord.js";
 import RefLink from "../components/RefLink.js";
 import SkillBar from "../components/SkillBar.js";
 import DetailText from "../components/DetailText.js";
+import SectionTitle from "../components/SectionTitle";
+
+console.log(titles);
 
 export default function Curriculum(props) {
   return (
     <>
-      <div className="row">
+      <div className="row sectionDiv">
         <div className="col text-center grid">
           <h2>{props.data["personalData"]["name"]}</h2>
           <div>
@@ -23,12 +28,21 @@ export default function Curriculum(props) {
             </p>
           </div>
         </div>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-outline-secondary" onClick={props.langFun}>
+            Es/En
+          </button>
+        </div>
+        <hr></hr>
       </div>
       <div className="row">
         <div className="columnHolder">
-          <div className="columnBasics text-center">
-            <div className="row ">
-              <h4>{titles["personal"][props.lang]}</h4>
+          <div className="columnBasics">
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["personalData"][props.lang]}
+                icon={titles["personalData"]["icon"]}
+              />
               {["city", "country", "phone", "email"].map((detail) => {
                 if (detail === "phone") {
                   return (
@@ -44,14 +58,20 @@ export default function Curriculum(props) {
                 }
               })}
             </div>
-            <div className="row">
-              <h4>{titles["links"][props.lang]}</h4>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["links"][props.lang]}
+                icon={titles["links"]["icon"]}
+              />
               {props.data["links"].map((item) => {
                 return <RefLink url={item.url} name={item.name} />;
               })}
             </div>
-            <div className="row">
-              <h4>{titles["skills"][props.lang]}</h4>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["skills"][props.lang]}
+                icon={titles["skills"]["icon"]}
+              />
               {props.data["skills"].map((item) => {
                 return (
                   <SkillBar
@@ -63,8 +83,11 @@ export default function Curriculum(props) {
                 );
               })}
             </div>
-            <div className="row">
-              <h4>{titles["languages"][props.lang]}</h4>
+            <div className="row sectionDiv">
+              <SectionTitle
+                name={titles["languages"][props.lang]}
+                icon={titles["languages"]["icon"]}
+              />
               {props.data["languages"].map((item) => {
                 return (
                   <SkillBar
@@ -78,12 +101,18 @@ export default function Curriculum(props) {
             </div>
           </div>
           <div className="columnTexts">
-            <div className="text-justify row">
-              <h4>{titles["profile"][props.lang]}</h4>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["profile"][props.lang]}
+                icon={titles["profile"]["icon"]}
+              />
               <p className="recordText">{props.data["profile"]}</p>
             </div>
-            <div className="text-justify row">
-              <h4>{titles["employment"][props.lang]}</h4>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["experience"][props.lang]}
+                icon={titles["experience"]["icon"]}
+              />
               {props.data["experience"].map((item) => {
                 return (
                   <DetailedRecord
@@ -98,8 +127,11 @@ export default function Curriculum(props) {
                 );
               })}
             </div>
-            <div className="text-justify row">
-              <h4>{titles["education"][props.lang]}</h4>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["education"][props.lang]}
+                icon={titles["education"]["icon"]}
+              />
               {props.data["education"].map((item) => {
                 return (
                   <SimpleRecord
@@ -113,8 +145,11 @@ export default function Curriculum(props) {
                 );
               })}
             </div>
-            <div className="text-justify row">
-              <h4>{titles["courses"][props.lang]}</h4>
+            <div className="row text-justify sectionDiv">
+              <SectionTitle
+                name={titles["certifications"][props.lang]}
+                icon={titles["certifications"]["icon"]}
+              />
               {props.data["certifications"].map((item) => {
                 return (
                   <SimpleRecord
@@ -130,11 +165,6 @@ export default function Curriculum(props) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-center">
-        <button className="btn btn-outline-secondary" onClick={props.langFun}>
-          Es/En
-        </button>
       </div>
     </>
   );
