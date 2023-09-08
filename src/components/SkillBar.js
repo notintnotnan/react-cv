@@ -2,7 +2,7 @@ export default function SkillBar(props) {
   const widthPercent = String(100 * (props.value / props.max));
   return (
     <>
-      <div className="d-grid">
+      <div className="d-grid text-center">
         <div>
           <p className="m-0">{`${props.name} → ${props.text}`}</p>
         </div>
