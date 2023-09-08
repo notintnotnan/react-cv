@@ -54,6 +54,18 @@
   padding: 5px;
 }
 
+.progressBarHeight {
+  height: 100%;
+}
+
+.progressBarFill {
+  background-color: gray !important;
+}
+
+.progressBarLabel {
+  padding-right: 5px;
+}
+
 @media (max-width: 768px) {
   .columnHolder {
     flex-direction: column;
