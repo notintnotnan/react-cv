@@ -33,9 +33,29 @@
 
 .recordDates {
   font-family: "Oswald-light";
-  color: lightgray;
+  color: lightslategrey;
 }
 
 .faicon {
   color: black;
+}
+
+.columnHolder {
+  display: flex;
+}
+
+.columnBasics {
+  flex: 1;
+  padding: 5px;
+}
+
+.columnTexts {
+  flex: 2;
+  padding: 5px;
+}
+
+@media (max-width: 768px) {
+  .columnHolder {
+    flex-direction: column;
+  }
 }

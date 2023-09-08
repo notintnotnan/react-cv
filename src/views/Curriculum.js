@@ -25,105 +25,109 @@ export default function Curriculum(props) {
         </div>
       </div>
       <div className="row">
-        <div className="col-2 text-center">
-          <div className="row ">
-            <h4>{titles["personal"][props.lang]}</h4>
-            {["city", "country", "phone", "email"].map((detail) => {
-              if (detail === "phone") {
+        <div className="columnHolder">
+          <div className="columnBasics text-center">
+            <div className="row ">
+              <h4>{titles["personal"][props.lang]}</h4>
+              {["city", "country", "phone", "email"].map((detail) => {
+                if (detail === "phone") {
+                  return (
+                    <DetailText
+                      id={props.data["personalData"]["phone_id"]}
+                      detail={props.data["personalData"][detail]}
+                    />
+                  );
+                } else {
+                  return (
+                    <DetailText detail={props.data["personalData"][detail]} />
+                  );
+                }
+              })}
+            </div>
+            <div className="row">
+              <h4>{titles["links"][props.lang]}</h4>
+              {props.data["links"].map((item) => {
+                return <RefLink url={item.url} name={item.name} />;
+              })}
+            </div>
+            <div className="row">
+              <h4>{titles["skills"][props.lang]}</h4>
+              {props.data["skills"].map((item) => {
                 return (
-                  <DetailText
-                    id={props.data["personalData"]["phone_id"]}
-                    detail={props.data["personalData"][detail]}
+                  <SkillBar
+                    value={item.level}
+                    max={item.overall}
+                    name={item.skill}
+                    text={item.levelText}
                   />
                 );
-              } else {
+              })}
+            </div>
+            <div className="row">
+              <h4>{titles["languages"][props.lang]}</h4>
+              {props.data["languages"].map((item) => {
                 return (
-                  <DetailText detail={props.data["personalData"][detail]} />
+                  <SkillBar
+                    value={item.level}
+                    max={item.overall}
+                    name={item.language}
+                    text={item.levelText}
+                  />
                 );
-              }
-            })}
+              })}
+            </div>
           </div>
-          <div className="row">
-            <h4>{titles["links"][props.lang]}</h4>
-            {props.data["links"].map((item) => {
-              return <RefLink url={item.url} name={item.name} />;
-            })}
-          </div>
-          <div className="row">
-            <h4>{titles["skills"][props.lang]}</h4>
-            {props.data["skills"].map((item) => {
-              return (
-                <SkillBar
-                  value={item.level}
-                  max={item.overall}
-                  name={item.skill}
-                />
-              );
-            })}
-          </div>
-          <div className="row">
-            <h4>{titles["languages"][props.lang]}</h4>
-            {props.data["languages"].map((item) => {
-              return (
-                <SkillBar
-                  value={item.level}
-                  max={item.overall}
-                  name={item.language}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="col-10">
-          <div className="text-justify row">
-            <h4>{titles["profile"][props.lang]}</h4>
-            <p className="recordText">{props.data["profile"]}</p>
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["employment"][props.lang]}</h4>
-            {props.data["experience"].map((item) => {
-              return (
-                <DetailedRecord
-                  employer={item["employer"]}
-                  title={item["title"]}
-                  city={item["city"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  description={item["description"]}
-                  lang={props.lang}
-                />
-              );
-            })}
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["education"][props.lang]}</h4>
-            {props.data["education"].map((item) => {
-              return (
-                <SimpleRecord
-                  institution={item["institution"]}
-                  degree={item["degree"]}
-                  city={item["city"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  lang={props.lang}
-                />
-              );
-            })}
-          </div>
-          <div className="text-justify row">
-            <h4>{titles["courses"][props.lang]}</h4>
-            {props.data["certifications"].map((item) => {
-              return (
-                <SimpleRecord
-                  institution={item["institution"]}
-                  degree={item["certification"]}
-                  city={item["platform"]}
-                  start={item["start"]}
-                  end={item["end"]}
-                  lang={props.lang}
-                />
-              );
-            })}
+          <div className="columnTexts">
+            <div className="text-justify row">
+              <h4>{titles["profile"][props.lang]}</h4>
+              <p className="recordText">{props.data["profile"]}</p>
+            </div>
+            <div className="text-justify row">
+              <h4>{titles["employment"][props.lang]}</h4>
+              {props.data["experience"].map((item) => {
+                return (
+                  <DetailedRecord
+                    employer={item["employer"]}
+                    title={item["title"]}
+                    city={item["city"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    description={item["description"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
+            <div className="text-justify row">
+              <h4>{titles["education"][props.lang]}</h4>
+              {props.data["education"].map((item) => {
+                return (
+                  <SimpleRecord
+                    institution={item["institution"]}
+                    degree={item["degree"]}
+                    city={item["city"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
+            <div className="text-justify row">
+              <h4>{titles["courses"][props.lang]}</h4>
+              {props.data["certifications"].map((item) => {
+                return (
+                  <SimpleRecord
+                    institution={item["institution"]}
+                    degree={item["certification"]}
+                    city={item["platform"]}
+                    start={item["start"]}
+                    end={item["end"]}
+                    lang={props.lang}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
