@@ -22,6 +22,18 @@ How everythin was set up, some of its milestones, the packages needed and how th
 
 #### Roadmap
 
+This all started wanting to mimic a [pay-to-download CV generator](https://resume.io/app/) that I used to update my cv after a couple of years just re writting the (nicest) template I could find initially on MS Word. I still ended up buying the free trial of the site and downloading both and english and spanish version of the CV I designed (Its a good one, I recommend it without being paid or anything), though I started to wonder: Could I build my own using what I knew of React?
+
+I am pretty new to React (working on a couple of secret projects with it), not more than 6 months working with it, though after few extra hours expended on REALLY learning the basics through some YouTube videos ([this one](https://www.youtube.com/watch?v=SqcY0GlETPk&pp=ygUOcmVhY3QgdG90b3JpYWw%3D) and and [that one](https://www.youtube.com/watch?v=jCY6DH8F4oc) helped a lot) and the docs.
+
+The first step was mimicking the CV style and layout, it was pretty simple using [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/), its `row` and `col` classes make up the mayority of cv layout, though I had to add some styling through my own .css file when I found that Bootstrap added more than I needed or that things could get a bit too complex. After some days working on it the spanish cv was done.
+
+After, the setting of the language change was the next new deal, I understand that some packages exist to handle translation and that using some kind of db there could be a text managing, but I wanted to keep things simple and under control. From the begining the spanish texts where saved into a JSON file that was feeding the components within the app so: Why not create another one in english and use a state to handle the change? `useState` was an obvious one, there is one state for the language setting and another one for the active JSON imported, the tricky part was being able to make it work, since the state change on the lang variable wouldn't trigger the JSON change on time. Enter `useEffect`! I hadn't used that one much, but after some guidance it made it work.
+
+The next one was responsiveness, I knew it existed and I had tried to make it work using vanilla CSS, but learning how to make it work with Bootstrap really made the look of the CV scale up. I do handle a couple of events using media queries, but the important ones happen using breakpoints.
+
+As of now the CV works like a charm as it was intended to, though there may be [some things](#todos) I would like to add in the (near?) future. I'll try to keep the REAME as up to date as possible, maybe I'll add some of my troubles so that anyone may learn if the visit the repo.
+
 #### Packages
 
 - @fortawesome/fontawesome-svg-core@6.4.2
@@ -123,4 +135,9 @@ Things done and some things I still want to add.
 - [ ] Add Dark mode.
 - [ ] Add a landing page to set the initial language.
 - [ ] Build a portafolio site to hold the cv within.
+- [ ] Purchase a domain.
 - [ ] Add analytics to the page (mostly visits).
+
+---
+
+© Oscar Felipe Ramírez Pardo 2023
