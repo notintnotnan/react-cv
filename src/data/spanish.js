@@ -4,13 +4,13 @@ const data = {
     city: "Bogotá",
     country: "Colombia",
     phone_id: 57,
-    phone: 3118288220,
+    phone: "311 828 8220",
     email: "oscarframirezp@hotmail.com",
   },
   links: [
     {
       name: "Linked In",
-      url: "https://www.linkedin.com/in/oframirez1095/",
+      url: "https://www.linkedin.com/in/oscarfeliperamirezpardo-datascience/",
     },
     {
       name: "GitHub",
