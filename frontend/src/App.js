@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { register_visit } from "./api.js";
 
 import "./media/fonts/Oswald-Light.ttf";
 import "./media/fonts/Oswald-Regular.ttf";
@@ -26,6 +27,14 @@ export default function App() {
   const [theme, setTheme] = useState(
     window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"
   );
+  const [ignoreVisit, setIgnoreVisit] = useState(false);
+
+  useEffect(() => {
+    if (!ignoreVisit) {
+      register_visit();
+      setIgnoreVisit(true);
+    }
+  }, [ignoreVisit]);
 
   const langDict = {
     0: dataEs,
