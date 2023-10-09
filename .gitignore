@@ -26,3 +26,4 @@ yarn-error.log*
 */env
 */*.sqlite3
 */.env
+__pycache__
