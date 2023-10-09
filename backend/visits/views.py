@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -30,13 +31,11 @@ def newVisit(request):
             ip_api_response.raise_for_status()
 
             ip_api_data = ip_api_response.json()
-            print(ip_api_data)
             ip_api_result = 'With location.'
             ip_api_country_code = ip_api_data['countryCode']
             ip_api_offset = ip_api_data['offset']
             ip_api_country = ip_api_data['country']
-        except Exception as e:
-            print(e)
+        except:
             ip_api_result = 'Without location.'
             ip_api_country_code = None
             ip_api_offset = None
