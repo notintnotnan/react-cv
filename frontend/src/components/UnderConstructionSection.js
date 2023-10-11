@@ -1,8 +1,15 @@
 import { useContext } from "react";
 import { LanguageContext } from "../App.js";
+import { useNavigate } from "react-router-dom";
 
 export default function UnderConstructionSection() {
   const [lang, langFun] = useContext(LanguageContext);
+  const navigate = useNavigate();
+
+  const homeNavigate = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div className="section-comingSoon">
@@ -21,7 +28,9 @@ export default function UnderConstructionSection() {
                 : "This place is under construction right now..."}
             </p>
           </div>
-          <button className="app-button">Home</button>
+          <button className="app-button" onClick={homeNavigate}>
+            Home
+          </button>
         </div>
       </div>
     </>

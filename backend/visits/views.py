@@ -10,6 +10,10 @@ from requests import get
 # Create your views here.
 @api_view(['GET'])
 def getVisitors(request):
+    return Response({'message':'Django REST api is online!'})
+
+@api_view(['GET'])
+def getVisitors(request):
     visitors = Visitor.objects.all()
     serializer = serializers.VisitorSerializer(visitors,many=True)
     return Response(serializer.data)
