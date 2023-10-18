@@ -29,7 +29,7 @@ def newVisit(request):
     result = None
 
     if ip:
-        ip_api_url = 'http://ip-api.com/json/{}?fields=33603587'.format(ip)
+        ip_api_url = 'http://ip-api.com/json/{}?fields=33570835'.format(ip)
         try:
             ip_api_response = get(ip_api_url)
             ip_api_response.raise_for_status()
@@ -39,16 +39,19 @@ def newVisit(request):
             ip_api_country_code = ip_api_data['countryCode']
             ip_api_offset = ip_api_data['offset']
             ip_api_country = ip_api_data['country']
+            ip_api_city = ip_api_data['city']
         except:
             ip_api_result = 'Without location.'
             ip_api_country_code = None
             ip_api_offset = None
             ip_api_country = None
+            ip_api_city = None
     else:
         ip_api_result = 'Without location.'
         ip_api_country_code = None
         ip_api_offset = None
         ip_api_country = None
+        ip_api_city = None
 
     try:
         print("Trying to record new visit")
@@ -57,12 +60,13 @@ def newVisit(request):
         visitor.country = ip_api_country
         visitor.country_code = ip_api_country_code
         visitor.tz_offset = ip_api_offset
+        visitor.city = ip_api_city
         visitor.visit_number += 1
         visitor.save()
         result = Response("Visit recorded. {}".format(ip_api_result),status=status.HTTP_200_OK)
     except Visitor.DoesNotExist:
         print("Trying to record new visit but instead updating")
-        newVisitor = Visitor(visitor_id=ip,country = ip_api_country,country_code = ip_api_country_code,tz_offset = ip_api_offset)
+        newVisitor = Visitor(visitor_id=ip,country = ip_api_country,country_code = ip_api_country_code,tz_offset = ip_api_offset, city = ip_api_city)
         newVisitor.save()
         result = Response("New visit added. {}".format(ip_api_result),status=status.HTTP_201_CREATED)
     except Exception as e:
