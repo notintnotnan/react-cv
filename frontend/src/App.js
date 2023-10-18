@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { register_visit } from "./api.js";
+import { apiDefautlInstance } from "./api.js";
 
 import "./media/fonts/Oswald-Light.ttf";
 import "./media/fonts/Oswald-Regular.ttf";
@@ -11,6 +11,7 @@ import "./App.css";
 import Homepage from "./views/Homepage";
 import Curriculum from "./views/Curriculum";
 import More from "./views/More";
+import Admin from "./views/Admin.js";
 
 import NavigationBar from "./components/NavigationBar";
 import ScrollToTop from "./components/ScrollToTop";
@@ -20,6 +21,7 @@ import dataEn from "./data/english.js";
 
 export const CurriculumContext = createContext();
 export const LanguageContext = createContext();
+export const AuthContext = createContext();
 
 export default function App() {
   const [language, setLanguage] = useState(0);
@@ -27,12 +29,19 @@ export default function App() {
   const [theme, setTheme] = useState(
     window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"
   );
+  const [authState, setAuthState] = useState(false);
   const [ignoreVisit, setIgnoreVisit] = useState(false);
 
   useEffect(() => {
     if (!ignoreVisit) {
-      register_visit();
-      setIgnoreVisit(true);
+      apiDefautlInstance
+        .post(process.env.REACT_APP_VISITOR_API_URL)
+        .then(() => {
+          setIgnoreVisit(true);
+        })
+        .catch(() => {
+          return { statusText: "Bad Request", status_code: 400 };
+        });
     }
   }, [ignoreVisit]);
 
@@ -72,15 +81,18 @@ export default function App() {
       <div className="App">
         <LanguageContext.Provider value={[language, changeLanguage]}>
           <CurriculumContext.Provider value={cvData}>
-            <BrowserRouter>
-              <ScrollToTop />
-              <NavigationBar />
-              <Routes>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/curriculum" element={<Curriculum />} />
-                <Route path="/more" element={<More />} />
-              </Routes>
-            </BrowserRouter>
+            <AuthContext.Provider value={[authState, setAuthState]}>
+              <BrowserRouter>
+                <ScrollToTop />
+                <NavigationBar />
+                <Routes>
+                  <Route path="/" element={<Homepage />} />
+                  <Route path="/curriculum" element={<Curriculum />} />
+                  <Route path="/more" element={<More />} />
+                  <Route path="/admin" element={<Admin />} />
+                </Routes>
+              </BrowserRouter>
+            </AuthContext.Provider>
           </CurriculumContext.Provider>
         </LanguageContext.Provider>
       </div>
